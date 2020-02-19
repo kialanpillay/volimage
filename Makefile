@@ -1,19 +1,18 @@
 CC=g++         
 CCFLAGS=-std=c++11  
 
-driver: driver.o database.o
-	$(CC) $(CCFLAGS) driver.o database.o -o driver
+VolImage: VolImage_driver.o VolImage.o
+	$(CC) $(CCFLAGS) VolImage_driver.o VolImage.o -o VolImage
 
-driver.o: driver.cpp
-	$(CC) $(CCFLAGS) -c driver.cpp	
+VolImage_driver.o: VolImage_driver.cpp
+	$(CC) $(CCFLAGS) -c VolImage_driver.cpp	
 
-database.o: database.cpp database.h
-	$(CC) $(CCFLAGS) -c database.cpp
+VolImage.o: VolImage.cpp VolImage.h
+	$(CC) $(CCFLAGS) -c VolImage.cpp
 
 clean:
 	@rm -f *.o
 	@rm -rf ./bin
-	@rm database.txt
    
 run:
 	@./bin/driver
