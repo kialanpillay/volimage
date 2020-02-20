@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <cmath>
 #include <vector>
 #include "vol_image.h"
 
@@ -66,12 +67,36 @@ bool PLLKIA010::VolImage::readImages(std::string baseName)
 
 void PLLKIA010::VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
 {
-
+    ofstream file(output_prefix + ".raw",ios::binary); 
+    for (int r = 0; r < height; r++){
+        {
+            unsigned char* rowArray = new unsigned char[width];
+            for (int c = 0; c < width; c++)
+            {
+                rowArray[c] = (unsigned char)(abs((float)slices[sliceI][r][c] - (float)slices[sliceJ][r][c])/2);
+            }
+            file.write((char*)rowArray,width);
+            delete [] rowArray;
+        }
+    }
+    file.close();
 }
             
 void PLLKIA010::VolImage::extract(int sliceId, std::string output_prefix)
 {
-
+    ofstream file(output_prefix + ".raw",ios::binary); 
+    for (int r = 0; r < height; r++){
+        {
+            unsigned char* rowArray = new unsigned char[width];
+            for (int c = 0; c < width; c++)
+            {
+                rowArray[c] = slices[sliceId][r][c];
+            }
+            file.write((char*)rowArray,width);
+            delete [] rowArray;
+        }
+    }
+    file.close();
 }
 int PLLKIA010::VolImage::volImageSize(void)
 {
@@ -79,7 +104,7 @@ int PLLKIA010::VolImage::volImageSize(void)
 
     for (int i = 0; i < slices.size(); i++)
         {
-            for (int j = 0; i < height; i++)
+            for (int j = 0; j < height; i++)
             {
                 for (int k = 0; k < width; k++)
                 {

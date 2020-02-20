@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "volimage.h"
+#include "vol_image.h"
 
 using namespace std;
 
@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
         cerr << "Object creation failed! Exiting...";
         exit(1);
     }
-
     if(argc == 6)
     {
         imageBase = string(argv[1]);
@@ -23,22 +22,31 @@ int main(int argc, char* argv[])
         string s = string(argv[3]) + " " + string(argv[4]);
         istringstream iss(s);
         iss >> i >> j;
+        app.readImages(imageBase);
+        app.diffmap(i, j, output_file_name);
+        cout << "Difference map computed!" << endl;
     }
     else if(argc == 5)
     {
         imageBase = string(argv[1]);
         output_file_name = string(argv[4]);
-        string i = string(argv[3]);
-        istringstream iss(i);
+        string s = string(argv[3]);
+        istringstream iss(s);
         iss >> i;
+        app.readImages(imageBase);
+        app.extract(i, output_file_name);
+        cout << "Slice extracted!" << endl;
     }
-    else{
+    else if(argc == 2){
         imageBase = string(argv[1]);
         imageBase = "MRI";
         app.readImages(imageBase);
         cout << "Number of images: " << app.volImageNum() << endl;
         cout << "Number of bytes required: " << app.volImageSize() << endl;
         
+    }
+    else{
+        cout << "Incorrect number of arguments!" << endl;
     }
     return 0;
 }
