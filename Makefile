@@ -7,8 +7,8 @@ volimage: driver.o volimage.o
 driver.o: driver.cpp
 	$(CC) $(CCFLAGS) -c driver.cpp	
 
-volimage.o: volimage.cpp volimage.h
-	$(CC) $(CCFLAGS) -c volimage.cpp
+volimage.o: vol_image.cpp vol_image.h
+	$(CC) $(CCFLAGS) -c vol_image.cpp
   
 clean:
 	@rm -f *.o

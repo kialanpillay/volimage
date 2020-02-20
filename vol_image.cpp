@@ -3,7 +3,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <vector>
-#include "volimage.h"
+#include "vol_image.h"
 
 using namespace std;
 
