@@ -16,6 +16,7 @@ namespace PLLKIA010
             bool readImages(std::string baseName);
             void diffmap(int sliceI, int sliceJ, std::string output_prefix);
             void extract(int sliceId, std::string output_prefix);
+            void depthExtract(int rowId, std::string output_prefix);
             int volImageSize(void); 
             int volImageNum(void);
     };

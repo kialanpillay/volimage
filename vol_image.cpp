@@ -84,7 +84,12 @@ void PLLKIA010::VolImage::diffmap(int sliceI, int sliceJ, std::string output_pre
             
 void PLLKIA010::VolImage::extract(int sliceId, std::string output_prefix)
 {
+    ofstream header(output_prefix + ".data"); 
+    header << width << " " << height  << " " << 1;
+    header.close();
+
     ofstream file(output_prefix + ".raw",ios::binary); 
+    unsigned char** output = new unsigned char*[height];
     for (int r = 0; r < height; r++){
         {
             unsigned char* rowArray = new unsigned char[width];
@@ -92,12 +97,37 @@ void PLLKIA010::VolImage::extract(int sliceId, std::string output_prefix)
             {
                 rowArray[c] = slices[sliceId][r][c];
             }
-            file.write((char*)rowArray,width);
+            file.write((char*)rowArray,width); //writing to file
+            output[r] = rowArray; //writing to output sequence
             delete [] rowArray;
         }
     }
     file.close();
 }
+
+void PLLKIA010::VolImage::depthExtract(int rowId, std::string output_prefix)
+{
+    ofstream header(output_prefix + "_depth.data"); 
+    header << width << " " << height  << " " << 1;
+    header.close();
+    unsigned char** output = new unsigned char*[slices.size()];
+    ofstream file(output_prefix + "_depth.raw",ios::binary); 
+    for (int s = 0; s < slices.size(); s++){
+        {
+            unsigned char* rowArray = new unsigned char[width];
+            for (int c = 0; c < width; c++)
+            {
+                rowArray[c] = slices[s][rowId][c];
+            }
+            file.write((char*)rowArray,width);
+            output[s] = rowArray;
+            delete [] rowArray;
+        }
+    }
+    file.close();
+}
+
+
 int PLLKIA010::VolImage::volImageSize(void)
 {
     int size = 0;
