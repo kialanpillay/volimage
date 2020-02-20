@@ -8,7 +8,6 @@ driver.o: driver.cpp
 	$(CC) $(CCFLAGS) -c driver.cpp	
 
 volimage.o: volimage.cpp volimage.h
-	cppcheck --enable=all volimage.cpp
 	$(CC) $(CCFLAGS) -c volimage.cpp
   
 clean:
