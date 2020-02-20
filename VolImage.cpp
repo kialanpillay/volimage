@@ -77,10 +77,14 @@ int PLLKIA010::VolImage::volImageSize(void)
 {
     int size = 0;
 
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < slices.size(); i++)
         {
-            for (int j = 0; i < width; i++)
+            for (int j = 0; i < height; i++)
             {
+                for (int k = 0; k < width; k++)
+                {
+                    size += sizeof(slices[i][j][k]);
+                }
                 size += sizeof(slices[i][j]);
             }
             size += sizeof(slices[i]);
