@@ -3,25 +3,20 @@
 #include <sstream>
 #include <cstdlib>
 #include <vector>
-#include "VolImage.h"
+#include "volimage.h"
 
 using namespace std;
-using namespace PLLKIA010;
 
-VolImage::VolImage()
-{
-    width = 0;
-    height = 0;
-    slices = {};
-}
 
-VolImage::~VolImage()
+PLLKIA010::VolImage::VolImage(): width(0), height(0), slices(0){}
+
+PLLKIA010::VolImage::~VolImage()
 {
     if(!slices.empty())
     {
         for (int i = 0; i < slices.size(); i++)
         {
-            for (int j = 0; i < height; i++)
+            for (int j = 0; j < height; j++)
             {
                 delete [] slices[i][j];
             }
@@ -32,65 +27,53 @@ VolImage::~VolImage()
     };
 }
 
-bool VolImage::readImages(std::string baseName)
+bool PLLKIA010::VolImage::readImages(std::string baseName)
 {
-    ifstream file(baseName + ".data"); 
-    if(file)
-    {
-        string str;
-        int number_images;
-        slices.reserve(number_images);
+    ifstream file("./brain_mri_raws/" + baseName + ".data"); 
 
-        while (getline(file, str))
-        {
-            istringstream iss(str);
-            iss >> width >> height >> number_images;
-        }
-
-        for(int i = 0; i < number_images; i++)
-        {
-            ifstream raw(baseName + to_string(i) + ".raw");
-            unsigned char **imageBuffer = new unsigned char*[height];
-            for(int j = 0; j < height; j ++){
-
-                
-                while (getline(file, str))
-                {
-                    unsigned char *tempBuffer = new unsigned char[width];
-                    istringstream iss(str);
-                    for(int k = 0l; k < width; k++){
-                        iss >> tempBuffer;
-                    }
-                    *imageBuffer[0] = *tempBuffer;
-                    delete [] tempBuffer;
-                }
-                
-            }
-            slices.push_back(imageBuffer);
-            
-        }
-
-
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    string str;
+    int number_images;
     
 
+    while (getline(file, str))
+    {
+        istringstream iss(str);
+        iss >> width >> height >> number_images;
+    }
+    slices.resize(number_images);
+    
+        for(int i = 0; i < number_images; i++)
+        {
+            ifstream raw("./brain_mri_raws/" + baseName + to_string(i) + ".raw", ios::in|ios::binary);
+            unsigned char** imageArray = new unsigned char*[height];
+            if (raw.is_open())
+            { 
+
+                for(int j = 0; j < height; j ++){
+                    imageArray[j] = new unsigned char[width];
+                    raw.seekg (j*width);
+                    raw.read ((char*)imageArray[j], width);
+                }
+                
+                raw.close();
+                
+            }
+                slices[i] = imageArray;
+        }  
+
+    return true;
 }
 
-void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
+void PLLKIA010::VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
 {
 
 }
             
-void VolImage::extract(int sliceId, std::string output_prefix)
+void PLLKIA010::VolImage::extract(int sliceId, std::string output_prefix)
 {
 
 }
-int VolImage::volImageSize(void)
+int PLLKIA010::VolImage::volImageSize(void)
 {
     int size = 0;
 
@@ -106,7 +89,7 @@ int VolImage::volImageSize(void)
     return size;
 }
 
-int VolImage::volImageSize(void)
+int PLLKIA010::VolImage::volImageNum(void)
 {
     return slices.size();
 }

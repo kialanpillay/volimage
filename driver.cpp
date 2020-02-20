@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "VolImage.h"
+#include "volimage.h"
 
 using namespace std;
 
@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
         cerr << "Object creation failed! Exiting...";
         exit(1);
     }
-    ptrV = new PLLKIA010::VolImage;
 
     if(argc == 6)
     {
@@ -35,11 +34,11 @@ int main(int argc, char* argv[])
     }
     else{
         imageBase = string(argv[1]);
+        imageBase = "MRI";
         app.readImages(imageBase);
-        cout << "Number of images: \n" << app.volImageNum() << endl;
-        cout << "Number of bytes required: \n" << app.volImageSize() << endl;
+        cout << "Number of images: " << app.volImageNum() << endl;
+        cout << "Number of bytes required: " << app.volImageSize() << endl;
+        
     }
-    
-    
     return 0;
 }
