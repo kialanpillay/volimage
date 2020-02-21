@@ -97,11 +97,12 @@ void PLLKIA010::VolImage::extract(int sliceId, std::string output_prefix)
             {
                 rowArray[c] = slices[sliceId][r][c];
             }
-            file.write((char*)rowArray,width); //writing to file
             output[r] = rowArray; //writing to output sequence
+            file.write((char*)output[r],width); //writing to file
             delete [] rowArray;
         }
     }
+    delete [] output;
     file.close();
 }
 
@@ -119,11 +120,12 @@ void PLLKIA010::VolImage::depthExtract(int rowId, std::string output_prefix)
             {
                 rowArray[c] = slices[s][rowId][c];
             }
-            file.write((char*)rowArray,width);
             output[s] = rowArray;
+            file.write((char*)output[s],width);
             delete [] rowArray;
         }
     }
+    delete [] output;
     file.close();
 }
 
@@ -131,10 +133,9 @@ void PLLKIA010::VolImage::depthExtract(int rowId, std::string output_prefix)
 int PLLKIA010::VolImage::volImageSize(void)
 {
     int size = 0;
-
     for (int i = 0; i < slices.size(); i++)
         {
-            for (int j = 0; j < height; i++)
+            for (int j = 0; j < height; j++)
             {
                 for (int k = 0; k < width; k++)
                 {
@@ -144,7 +145,7 @@ int PLLKIA010::VolImage::volImageSize(void)
             }
             size += sizeof(slices[i]);
         };
-    
+
     return size;
 }
 

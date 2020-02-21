@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
         cerr << "Object creation failed! Exiting...";
         exit(1);
     }
+    
     if(argc == 6)
     {
         imageBase = string(argv[1]);
@@ -59,5 +60,6 @@ int main(int argc, char* argv[])
     else{
         cout << "Incorrect number of arguments!" << endl;
     }
+    delete ptrV;
     return 0;
 }

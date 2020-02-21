@@ -13,10 +13,7 @@ vol_image.o: vol_image.cpp vol_image.h
 clean:
 	@rm -f *.o
 	@rm -f *.raw && rm -f *.data
-	@rm -rf ./bin
    
 run:
-	@./bin/volimage MRI
+	@./volimage MRI
 
-install:
-	@rm -rf ./bin && mkdir ./bin && mv volimage ./bin
