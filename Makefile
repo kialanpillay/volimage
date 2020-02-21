@@ -11,7 +11,7 @@ vol_image.o: vol_image.cpp vol_image.h
 	$(CC) $(CCFLAGS) -c vol_image.cpp
   
 clean:
-	@rm -f *.o
+	@rm -f *.o && rm -f volimage
 	@rm -f *.raw && rm -f *.data
    
 run:
