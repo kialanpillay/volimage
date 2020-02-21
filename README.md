@@ -1,4 +1,4 @@
-# Assignment One: PLLKIA010
+# Assignment Two: PLLKIA010
 
 ## Makefile
 The purpose of the Makefile is to automatically compile and link the C++ source files into a binary executable that can be run locally. Run these commands in sequence to interact with the program.
@@ -7,6 +7,10 @@ The purpose of the Makefile is to automatically compile and link the C++ source 
 ```make run``` will run the executable with the default arguments (with "MRI" as the image base)
 
 ```make clean``` will delete all object files, raw files, header (.data) files, and the executable. 
+
+This is the format of arugments that can be passed into the program.
+```volimage <imageBase> [-d i j output_file_name] [-x i output_file_name] [-g i output_file_name]```
+Note that operations are mutually exlusive. 
 
 ## vol_image.h
 
