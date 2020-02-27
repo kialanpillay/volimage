@@ -10,7 +10,7 @@ The purpose of the Makefile is to automatically compile and link the C++ source 
 
 This is the format of arugments that can be passed into the program.
 ```volimage <imageBase> [-d i j output_file_name] [-x i output_file_name] [-g i output_file_name]```
-Note that operations are mutually exlusive. 
+Note that operations are mutually exlusive. Furthermore, the ```<imageBase>``` arugment must include the name of the folder that the raw files are located in i.e. ```folder/base``` 
 
 ## vol_image.h
 
