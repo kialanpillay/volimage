@@ -45,20 +45,19 @@ bool PLLKIA010::VolImage::readImages(std::string baseName)
         for(int i = 0; i < number_images; i++)
         {
             ifstream raw("./" + baseName + to_string(i) + ".raw", ios::in|ios::binary);
-            unsigned char** imageArray = new unsigned char*[height];
+            slices[i] = new unsigned char*[height];
             if (raw.is_open())
             { 
 
                 for(int j = 0; j < height; j ++){
-                    imageArray[j] = new unsigned char[width];
+                    slices[i][j] = new unsigned char[width];
                     raw.seekg (j*width);
-                    raw.read ((char*)imageArray[j], width);
+                    raw.read ((char*)slices[i][j], width);
                 }
                 
                 raw.close();
                 
             }
-                slices[i] = imageArray;
         }  
 
     return true;

@@ -1,5 +1,5 @@
 CC=g++         
-CCFLAGS=-std=c++11
+CCFLAGS=-std=c++11 -Wall -g -fsanitize=address -fno-omit-frame-pointer
 
 volimage: driver.o vol_image.o
 	$(CC) $(CCFLAGS) driver.o vol_image.o -o volimage
