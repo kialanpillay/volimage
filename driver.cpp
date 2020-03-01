@@ -51,7 +51,6 @@ int main(int argc, char* argv[])
     }
     else if(argc == 2){
         imageBase = string(argv[1]);
-        imageBase = "MRI";
         app.readImages(imageBase);
         cout << "Number of images: " << app.volImageNum() << endl;
         cout << "Number of bytes required: " << app.volImageSize() << endl;

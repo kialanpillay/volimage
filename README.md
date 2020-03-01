@@ -9,8 +9,14 @@ The purpose of the Makefile is to automatically compile and link the C++ source 
 ```make clean``` will delete all object files, raw files, header (.data) files, and the executable. 
 
 This is the format of arugments that can be passed into the program.
-```volimage <imageBase> [-d i j output_file_name] [-x i output_file_name] [-g i output_file_name]```
+```./volimage <imageBase> [-d i j output_file_name] [-x i output_file_name] [-g i output_file_name]```
 Note that operations are mutually exlusive. Furthermore, the ```<imageBase>``` arugment must include the name of the folder that the raw files are located in i.e. ```folder/base``` 
+
+Example Commands
+```./volimage brain_mri_raws/MRI -d 0 10 output```
+```./volimage brain_mri_raws/MRI -x 10 output```
+```./volimage brain_mri_raws/MRI -g 10 output```
+
 
 ## vol_image.h
 
